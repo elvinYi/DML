@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{2BC9ED2F-9BCC-42F8-B1A6-AC90B92FC249}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>doll_machine_living_sdk</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>../../bin</OutDir>
+    <IntDir>../../obj</IntDir>
+    <TargetName>$(ProjectName)d</TargetName>
+    <IncludePath>../../;../../include;../../include/util;../../external/include/ffmpeg;../../plugin;../../external/include/;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>../../;../../include;../../include/util;../../external/include/ffmpeg;../../plugin;../../external/include/;$(IncludePath)</IncludePath>
+    <OutDir>../../release</OutDir>
+    <IntDir>../../obj</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;DOLL_MACHINE_LIVING_SDK_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;DML_SDK_EXPORTS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>strmiids.lib;avcodec.lib;avformat.lib;avutil.lib;avfilter.lib;swresample.lib;swscale.lib;EncoderPlugind.lib;yuvd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\external\lib\Windows\DirectX;..\..\external\lib\Windows\ffmpeg;..\..\external\lib\Windows\libyuv\x64;..\..\bin</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;DOLL_MACHINE_LIVING_SDK_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;DML_SDK_EXPORTS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>strmiids.lib;avcodec.lib;avformat.lib;avutil.lib;avfilter.lib;swresample.lib;swscale.lib;EncoderPlugin.lib;yuv.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\external\lib\Windows\DirectX;..\..\external\lib\Windows\ffmpeg;..\..\external\lib\Windows\libyuv\x64;..\..\release</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\capture\AVFrameQueue.h" />
+    <ClInclude Include="..\..\include\capture\DirectShowCapture.h" />
+    <ClInclude Include="..\..\include\capture\DirectShowFilter.h" />
+    <ClInclude Include="..\..\include\capture\dml_capture.h" />
+    <ClInclude Include="..\..\include\capture\StringConverter.h" />
+    <ClInclude Include="..\..\include\common_define.h" />
+    <ClInclude Include="..\..\include\dml_manager.h" />
+    <ClInclude Include="..\..\include\pusher\dml_pusher.h" />
+    <ClInclude Include="..\..\include\pusher\rtp_sender.h" />
+    <ClInclude Include="..\..\include\Render\BaseRender.h" />
+    <ClInclude Include="..\..\include\Render\D3DRender.h" />
+    <ClInclude Include="..\..\include\Render\DirectSoundWrapper.h" />
+    <ClInclude Include="..\..\include\Render\GdiRender.h" />
+    <ClInclude Include="..\..\include\Render\IDataSource.h" />
+    <ClInclude Include="..\..\include\Render\RenderManager.h" />
+    <ClInclude Include="..\..\include\util\BaseDataTypes.h" />
+    <ClInclude Include="..\..\include\util\Errors.h" />
+    <ClInclude Include="..\..\include\util\ImgRotater.h" />
+    <ClInclude Include="..\..\include\util\Log.h" />
+    <ClInclude Include="..\..\include\util\MediaFormat.h" />
+    <ClInclude Include="..\..\include\util\SavePicture.h" />
+    <ClInclude Include="..\..\include\util\snBaseThread.h" />
+    <ClInclude Include="..\..\include\util\snIndex.h" />
+    <ClInclude Include="..\..\include\util\snMutex.h" />
+    <ClInclude Include="..\..\include\util\snOSFunc.h" />
+    <ClInclude Include="..\..\include\util\snSemaphore.h" />
+    <ClInclude Include="..\..\include\util\snThread.h" />
+    <ClInclude Include="..\..\include\util\snType.h" />
+    <ClInclude Include="..\..\interface\dml_sdk_interface.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\include\capture\DirectShowCapture.cpp" />
+    <ClCompile Include="..\..\include\capture\DirectShowFilter.cpp" />
+    <ClCompile Include="..\..\include\capture\StringConverter.cpp" />
+    <ClCompile Include="..\..\include\Render\D3DRender.cpp" />
+    <ClCompile Include="..\..\include\Render\DirectSoundWrapper.cpp" />
+    <ClCompile Include="..\..\include\Render\GdiRender.cpp" />
+    <ClCompile Include="..\..\include\Render\RenderManager.cpp" />
+    <ClCompile Include="..\..\include\util\ImgRotater.cpp" />
+    <ClCompile Include="..\..\include\util\Log.cpp" />
+    <ClCompile Include="..\..\include\util\SavePicture.cpp" />
+    <ClCompile Include="..\..\include\util\snBaseThread.cpp" />
+    <ClCompile Include="..\..\include\util\snMutex.cpp" />
+    <ClCompile Include="..\..\include\util\snOSFunc.cpp" />
+    <ClCompile Include="..\..\include\util\snSemaphore.cpp" />
+    <ClCompile Include="..\..\include\util\snThread.cpp" />
+    <ClCompile Include="..\..\src\capture\AVFrameQueue.cpp" />
+    <ClCompile Include="..\..\src\capture\dml_capture.cpp" />
+    <ClCompile Include="..\..\src\dml_manager.cpp" />
+    <ClCompile Include="..\..\src\dml_sdk_interface.cpp" />
+    <ClCompile Include="..\..\src\pusher\dml_pusher.cpp" />
+    <ClCompile Include="..\..\src\pusher\rtp_sender.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{5c8735e0-8378-4818-9978-5e8f5f6dab8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{907e133f-4f4a-4e47-8a8e-9a655cd5ee9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\windows">
+      <UniqueIdentifier>{93a652a9-47a1-4200-b580-de834104c136}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="windows\win-version.h">
+      <Filter>include\windows</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\ComPtr.hpp">
+      <Filter>include\windows</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\CoTaskMemPtr.hpp">
+      <Filter>include\windows</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\HRError.hpp">
+      <Filter>include\windows</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\WinHandle.hpp">
+      <Filter>include\windows</Filter>
+    </ClInclude>
+    <ClInclude Include="profiler.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="profiler.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="serializer.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="text-lookup.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="threading.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="utf8.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="util.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="AlignedNew.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="array-serializer.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="base.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="bmem.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="c99defs.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="cf-lexer.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="cf-parser.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="circlebuf.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="config-file.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="crc32.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="darray.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="dstr.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="dstr.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="file-serializer.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="lexer.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="pipe.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="platform.h">
+      <Filter>include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="text-lookup.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="threading-windows.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="utf8.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="array-serializer.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="base.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="bmem.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="cf-lexer.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="cf-parser.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="config-file.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="crc32.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="dstr.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="file-serializer.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="lexer.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="pipe-windows.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="platform.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="platform-windows.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="profiler.c">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

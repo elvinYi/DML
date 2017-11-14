@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="头文件\capture">
+      <UniqueIdentifier>{70f200b6-cb67-42a4-915c-f62851936849}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\capture">
+      <UniqueIdentifier>{3c83823c-787a-442e-b736-799802f619c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\pusher">
+      <UniqueIdentifier>{3293bcb1-a2a8-4691-9050-2996b2baa561}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\pusher">
+      <UniqueIdentifier>{e0b9ace7-9aa8-4633-bae0-0406b4456f87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\pusher\render">
+      <UniqueIdentifier>{cec5ee9d-0ee8-4a93-8aef-bc915b088fc3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\pusher\render">
+      <UniqueIdentifier>{503055f1-f9e5-49e8-8e2b-9638c822c74d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\util">
+      <UniqueIdentifier>{727712be-cf09-436c-a7f1-d035ea0eab36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\util">
+      <UniqueIdentifier>{3f534220-5fdd-476a-81d1-e129143db9e1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\capture\dml_capture.h">
+      <Filter>头文件\capture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\common_define.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\pusher\dml_pusher.h">
+      <Filter>头文件\pusher</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\capture\AVFrameQueue.h">
+      <Filter>头文件\capture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\dml_manager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\capture\DirectShowCapture.h">
+      <Filter>头文件\capture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\capture\DirectShowFilter.h">
+      <Filter>头文件\capture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\capture\StringConverter.h">
+      <Filter>头文件\capture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Render\BaseRender.h">
+      <Filter>头文件\pusher\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Render\D3DRender.h">
+      <Filter>头文件\pusher\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Render\DirectSoundWrapper.h">
+      <Filter>头文件\pusher\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Render\GdiRender.h">
+      <Filter>头文件\pusher\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Render\IDataSource.h">
+      <Filter>头文件\pusher\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Render\RenderManager.h">
+      <Filter>头文件\pusher\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\util\BaseDataTypes.h">
+      <Filter>头文件\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\util\Errors.h">
+      <Filter>头文件\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\util\MediaFormat.h">
+      <Filter>头文件\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\util\snBaseThread.h">
+      <Filter>头文件\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\util\snIndex.h">
+      <Filter>头文件\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\util\snMutex.h">
+      <Filter>头文件\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\util\snOSFunc.h">
+      <Filter>头文件\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\util\snSemaphore.h">
+      <Filter>头文件\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\util\snThread.h">
+      <Filter>头文件\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\util\snType.h">
+      <Filter>头文件\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\interface\dml_sdk_interface.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\util\ImgRotater.h">
+      <Filter>头文件\capture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\util\SavePicture.h">
+      <Filter>头文件\pusher</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\util\Log.h">
+      <Filter>头文件\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\pusher\rtp_sender.h">
+      <Filter>头文件\pusher</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\capture\dml_capture.cpp">
+      <Filter>源文件\capture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\pusher\dml_pusher.cpp">
+      <Filter>源文件\pusher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\capture\AVFrameQueue.cpp">
+      <Filter>源文件\capture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\dml_manager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\capture\DirectShowFilter.cpp">
+      <Filter>源文件\capture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\capture\DirectShowCapture.cpp">
+      <Filter>源文件\capture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\capture\StringConverter.cpp">
+      <Filter>源文件\capture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\Render\D3DRender.cpp">
+      <Filter>源文件\pusher\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\Render\DirectSoundWrapper.cpp">
+      <Filter>源文件\pusher\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\Render\GdiRender.cpp">
+      <Filter>源文件\pusher\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\Render\RenderManager.cpp">
+      <Filter>源文件\pusher\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\util\snBaseThread.cpp">
+      <Filter>源文件\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\util\snMutex.cpp">
+      <Filter>源文件\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\util\snOSFunc.cpp">
+      <Filter>源文件\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\util\snSemaphore.cpp">
+      <Filter>源文件\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\util\snThread.cpp">
+      <Filter>源文件\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\dml_sdk_interface.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\util\ImgRotater.cpp">
+      <Filter>源文件\capture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\util\SavePicture.cpp">
+      <Filter>源文件\pusher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\util\Log.cpp">
+      <Filter>源文件\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\pusher\rtp_sender.cpp">
+      <Filter>源文件\pusher</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
