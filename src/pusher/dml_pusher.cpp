@@ -9,7 +9,6 @@
 #define MAX_VIDEO_FRAME_SIZE 1920*1080*3
 #define DEFAULT_FPS 15
 #define DEFAULT_PT 97
-#define LOG_FILE "./pusher.log"
 #define THIS_FILE "dml_pusher.c"
 namespace MediaPlugin {
 
@@ -34,7 +33,6 @@ namespace MediaPlugin {
 		if (!pYUVBuffer){
 			return;
 		}
-		Log::Init(LOG_FILE);
 	}
 
 	DMLPusher::~DMLPusher(void)
@@ -43,8 +41,6 @@ namespace MediaPlugin {
 		SAFE_DELETE(pPictureSaver);
 		SAFE_DELETE(pYUVBuffer);
 		SAFE_DELETE(pRtpSession);
-
-		Log::Release();
 	}
 
 	int16_t DMLPusher::SetConfig(UIConfig * pUiConfig, VideoFrameQueue * pVideoQueue, 
@@ -58,7 +54,10 @@ namespace MediaPlugin {
 		this->nFps = nFps;
 		memcpy(&this->uiConfig, pUiConfig, sizeof(UIConfig));
 		memcpy(&this->videoEncodeConfig, pVideoEncodeConfig, sizeof(DMLVideoEncodeInfo));
-		memcpy(&this->rtpStreamConfig, pRtpConfig, sizeof(RtpStreamConfig));
+		this->rtpStreamConfig.memberid = pRtpConfig->memberid;
+		this->rtpStreamConfig.port = pRtpConfig->port;
+		this->rtpStreamConfig.sSeverAddr = pRtpConfig->sSeverAddr;
+		this->rtpStreamConfig.ssrc = pRtpConfig->ssrc;
 
 		return NO_ERROR;
 	}
@@ -141,11 +140,13 @@ namespace MediaPlugin {
 
 	int16_t DMLPusher::Stop()
 	{
-		if (bStop){
-			return BAD_VALUE;
-		}
 		bStop = true;
 		snOS_Sleep(50);
+
+		releaseThread(renderThread);
+		renderThread = NULL;
+		releaseThread(pusherThread);
+		pusherThread = NULL;
 
 #if OLNY_D3D_RANDER
 		if (pVideoRender)
@@ -154,8 +155,13 @@ namespace MediaPlugin {
 		if (pVideoRender)
 			pVideoRender->Destroy();
 #endif
-		releaseThread(renderThread);
-		releaseThread(pusherThread);
+
+		if (videoEncoderHandle){
+			IEncoder_Stop(videoEncoderHandle);
+			IEncoder_Uninit(videoEncoderHandle);
+			IEncoder_Destory(videoEncoderHandle);
+			videoEncoderHandle = NULL;
+		}
 		SAFE_DELETE(pVideoRender);
 		SAFE_DELETE(pVideoHeaderData);
 		SAFE_DELETE(pVideoOutputData);
@@ -221,7 +227,8 @@ namespace MediaPlugin {
 							if (pRtpSession){
 								nFrameNum++;
 								nPusherSize += videoBaseOutputBuffer.getLength();
-								Log::d(THIS_FILE, "encoder output frame size:%d type:%d ", videoBaseOutputBuffer.getLength(), videoBaseOutputBuffer.getFlags());
+								Log::d(THIS_FILE, "ssrc:%d member:%d encoder output frame size:%d type:%d delay:%d",pRtpSession->getSSRC(),pRtpSession->getMemberid(),
+									videoBaseOutputBuffer.getLength(),videoBaseOutputBuffer.getFlags(), snOS_GetSysTime() - pVideoFrame->getTimestamp());
 								pRtpSession->sendVideoFrame(videoBaseOutputBuffer.getData(), videoBaseOutputBuffer.getLength(),
 									videoBaseOutputBuffer.getFlags(), nFrameNum, DEFAULT_PT, 0, 1000 / nFps);
 							}
@@ -236,10 +243,6 @@ namespace MediaPlugin {
 				}
 
 				pVideoQueue->enqueueUsedFrame();
-			}
-			else
-			{
-				int a = 1;
 			}
 
 			elapsedTime = snOS_GetSysTime() - sysTime;
@@ -309,42 +312,52 @@ namespace MediaPlugin {
 			codec = VIDEO_CODEC_H265;
 
 		if (!IEncoder_Init(videoEncoderHandle, IENCODER_VIDEO, (IEncoderIndex)videoEncodeConfig.videoEncoderType, codec)) {
+			Log::w(THIS_FILE, "Encoder Init Failed");
 			return BAD_VALUE;
 		}
 
 		if (!IEncoder_SetConfig(videoEncoderHandle, IENCODER_SET_KEY_VIDEO_WIDTH, &videoEncodeConfig.width)) {
+			Log::w(THIS_FILE, "Encoder Set Config Width Failed ");
 			return BAD_VALUE;
 		}
 
 		if (!IEncoder_SetConfig(videoEncoderHandle, IENCODER_SET_KEY_VIDEO_HEIGHT, &videoEncodeConfig.height)) {
+			Log::w(THIS_FILE, "Encoder Set Config Height Failed ");
 			return BAD_VALUE;
 		}
 
 		if (!IEncoder_SetConfig(videoEncoderHandle, IENCODER_SET_KEY_VIDEO_BITRATE, &videoEncodeConfig.bitrate)) {
+			Log::w(THIS_FILE, "Encoder Set Bitrate Failed ");
 			return BAD_VALUE;
 		}
 
 		if (!IEncoder_SetConfig(videoEncoderHandle, IENCODER_SET_KEY_VIDEO_FPS, &videoEncodeConfig.fps)) {
+			Log::w(THIS_FILE, "Encoder Set FPS Failed ");
 			return BAD_VALUE;
 		}
 
 		if (!IEncoder_SetConfig(videoEncoderHandle, IENCODER_SET_KEY_VIDEO_I_FRAME_INTERTVAL, &videoEncodeConfig.keyFrameInterval)) {
+			Log::w(THIS_FILE, "Encoder Set I Frame Interval Failed ");
 			return BAD_VALUE;
 		}
 
 		if (!IEncoder_SetConfig(videoEncoderHandle, IENCODER_SET_KEY_VIDEO_CPU_COUNT, &videoEncodeConfig.cpu)) {
+			Log::w(THIS_FILE, "Encoder Set Cpu Cnt Failed ");
 			return BAD_VALUE;
 		}
 
 		if (!IEncoder_SetConfig(videoEncoderHandle, IENCODER_SET_KEY_VIDEO_REFFRAME, &videoEncodeConfig.reFrame)) {
+			Log::w(THIS_FILE, "Encoder Set Refframe Failed ");
 			return BAD_VALUE;
 		}
 
 		if (!IEncoder_SetConfig(videoEncoderHandle, IENCODER_SET_KEY_VIDEO_INPUT_FORMAT, &videoEncodeConfig.colorFormat)) {
+			Log::w(THIS_FILE, "Encoder Set Input Format Failed ");
 			return BAD_VALUE;
 		}
 
 		if (!IEncoder_SetConfig(videoEncoderHandle, IENCODER_SET_KEY_VIDEO_ENC_QUALITY, &videoEncodeConfig.quality)) {
+			Log::w(THIS_FILE, "Encoder Set Quality Failed ");
 			return BAD_VALUE;
 		}
 
@@ -354,38 +367,47 @@ namespace MediaPlugin {
 		}
 
 		if (!IEncoder_SetConfig(videoEncoderHandle, IENCODER_SET_KEY_VIDEO_ENC_BITRATE_CONTROL_MODE, &bitrateControl)) {
+			Log::w(THIS_FILE, "Encoder Set Bitrate Control Failed ");
 			return BAD_VALUE;
 		}
 
 		if (!IEncoder_SetConfig(videoEncoderHandle, IENCODER_SET_KEY_VIDEO_ENC_PRESET, &videoEncodeConfig.preset)) {
+			Log::w(THIS_FILE, "Encoder Set Preset Failed ");
 			return BAD_VALUE;
 		}
 
 		if (!IEncoder_SetConfig(videoEncoderHandle, IENCODER_SET_KEY_VIDEO_ENC_PROFILE, &videoEncodeConfig.profile)) {
+			Log::w(THIS_FILE, "Encoder Set ProFile Failed ");
 			return BAD_VALUE;
 		}
 
 		if (!IEncoder_SetConfig(videoEncoderHandle, IENCODER_SET_KEY_VIDEO_ENC_B_FRAME_NUM, &videoEncodeConfig.bFrameNum)) {
+			Log::w(THIS_FILE, "Encoder Set B Frame Num Failed ");
 			return BAD_VALUE;
 		}
 
 		if (!IEncoder_SetConfig(videoEncoderHandle, IENCODER_SET_KEY_VIDEO_ENC_ENTROPY_CODING_MODE, &videoEncodeConfig.entropyCodingMode)) {
+			Log::w(THIS_FILE, "Encoder Set Coding Mode Failed ");
 			return BAD_VALUE;
 		}
 
 		if (!IEncoder_SetConfig(videoEncoderHandle, IENCODER_SET_KEY_VIDEO_ENC_CRF, &videoEncodeConfig.crf)) {
+			Log::w(THIS_FILE, "Encoder Set CRF Failed ");
 			return BAD_VALUE;
 		}
 
 		int tune = 7;
 		if (!IEncoder_SetConfig(videoEncoderHandle, IENCODER_SET_KEY_VIDEO_ENC_TUNE, &tune)) {
+			Log::w(THIS_FILE, "Encoder Set Tune Failed ");
 			return BAD_VALUE;
 		}
 		if (!IEncoder_Start(videoEncoderHandle)) {
+			Log::w(THIS_FILE, "Encoder Start Failed ");
 			return BAD_VALUE;
 		}
 
 		if (!IEncoder_GetParam(videoEncoderHandle, IEncoderGetKey::IENCODER_GET_KEY_HEAD_DATA, &videoHeadDataBuffer)) {
+			Log::w(THIS_FILE, "Encoder Set Head Data Failed ");
 			return BAD_VALUE;
 		}
 

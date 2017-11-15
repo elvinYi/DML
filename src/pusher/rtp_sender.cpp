@@ -141,7 +141,7 @@ int32_t RtpSession::sendVideoFrame(const uint8_t* pFrameBuf, int32_t frameLength
 	bool m, int32_t timestampInc)
 {
 	uint32_t  totalPkts;
-	ts = ts + (timestampInc * 1000 * 9 / 10);
+	ts = ts + (timestampInc * 100 * 9 / 10);
 	if (frameLength % maxVideoPayloadSize > 0){
 		totalPkts = frameLength / maxVideoPayloadSize + 1;
 	}else{
@@ -226,5 +226,15 @@ int32_t RtpSession::setVideoHeader(uint32_t frameNum, uint32_t pktIndex, uint32_
 	pVideoHeader->frameType = frameType;
 
 	return NO_ERROR;
+}
+
+uint32_t RtpSession::getSSRC()
+{
+	return ssrc;
+}
+
+uint32_t RtpSession::getMemberid()
+{
+	return memberId;
 }
 

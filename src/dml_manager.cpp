@@ -2,12 +2,14 @@
 #include "common_define.h"
 
 static DMLManager * gDmlManager = NULL;
+#define LOG_FILE "./dml"
 
 DMLManager::DMLManager() :
 pVideoDevicePreviewer(NULL)
 {
 	vVideoStreamGroup.clear();
 	creatVideoPreviewer();
+	Log::Init(LOG_FILE);
 }
 
 DMLManager::~DMLManager()
@@ -17,6 +19,7 @@ DMLManager::~DMLManager()
 		pVideoDevicePreviewer = NULL;
 	}
 	vVideoStreamGroup.clear();
+	Log::Release();
 }
 
 int16_t DMLManager::creatVideoPreviewer()
@@ -85,7 +88,7 @@ int16_t DMLManager::StartVideoStream(DMLVideoConfig * pVideoConfig)
 		pVideoConfig->nFps, MediaPlugin::VIDEO_DATA_RGB24);
 
 	if (pVideoStream->pVideoCapture->start(pVideoConfig->sCameraName) != NO_ERROR){
-		delete pVideoStream;
+		//delete pVideoStream;
 		if (pVideoConfig->uiConfig.windMsgCB && pVideoConfig->uiConfig.pWind){
 			pVideoConfig->uiConfig.windMsgCB(1, DML_EVENT_CAPTURE_OPEN_FAILED, NULL, NULL, pVideoConfig->uiConfig.pWind);
 		}
@@ -129,21 +132,21 @@ int16_t DMLManager::StartVideoStream(DMLVideoConfig * pVideoConfig)
 	}
 
 	pVideoStream->bIsStop = false;
-	vVideoStreamGroup.push_back(pVideoStream);
+	vVideoStreamGroup.push_back(*pVideoStream);
 
 	return NO_ERROR;
 }
 
 int16_t DMLManager::StopVideoStream(uint16_t nIndex)
 {
-	vector<DMLVideoStream*>::iterator it;
+	vector<DMLVideoStream>::iterator it;
 
 	for (it = vVideoStreamGroup.begin(); it != vVideoStreamGroup.end();){
-		if ((*it)->videoConfig.nIndex == nIndex &&
-			(*it)->bIsStop == false){
-			(*it)->pVideoPusher->Stop();
-			(*it)->pVideoCapture->stop();
-			(*it)->bIsStop = true;
+		if ((*it).videoConfig.nIndex == nIndex &&
+			(*it).bIsStop == false){
+			(*it).pVideoPusher->Stop();
+			(*it).pVideoCapture->stop();
+			(*it).bIsStop = true;
 
 			it = vVideoStreamGroup.erase(it);
 		}else{

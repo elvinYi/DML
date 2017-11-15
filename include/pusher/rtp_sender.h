@@ -42,6 +42,8 @@ public:
 public:
 	int32_t sendVideoFrame(const uint8_t* pFrameBuf, int32_t frameLength, uint32_t frameType, uint32_t frameNum, int8_t pt,
 		bool m, int32_t timestampInc);
+	uint32_t getSSRC();
+	uint32_t getMemberid();
 private:
 	int32_t encodeVideoRtpPacket(const uint8_t* buf, uint32_t payloadLength, int8_t pt, bool m, int32_t timestampInc,
 		uint32_t csrcCnt, uint32_t csrc, uint32_t memberId, uint32_t frameNum, uint32_t pktIndex, uint32_t totalPkts, uint32_t frameType);

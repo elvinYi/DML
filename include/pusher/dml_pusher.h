@@ -16,7 +16,7 @@
 #define  OUT_PUT_FRAMES 20
 #define  OLNY_D3D_RANDER        1
 
-#define DEBUG 
+//#define DEBUG 
 
 #ifdef DEBUG
 #define H264_PATH ".\\v.264"

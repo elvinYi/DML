@@ -26,7 +26,6 @@ namespace MediaPlugin {
 		pRotateBuffer = (uint8_t*) _aligned_malloc(nOutputWidth * nOutputHeight * 3,32);
 		pResizeBuffer = (uint8_t*)_aligned_malloc(nOutputWidth * nOutputHeight * 3, 32);
 		pBMPSaver = new SavePicture();
-		Log::Init(LOG_FILE);
 		//AllocConsole(); //debug console
 	}
 
@@ -46,9 +45,12 @@ namespace MediaPlugin {
 			pRotateBuffer = NULL;
 		}
 
-		SAFE_DELETE(pBMPSaver);
-		Log::Release();
+		if (pResizeBuffer){
+			_aligned_free(pResizeBuffer);
+			pResizeBuffer = NULL;
+		}
 
+		SAFE_DELETE(pBMPSaver);
 	}
 
 	int16_t DMLVideoCapture::start(const std::string &source)
@@ -195,7 +197,7 @@ namespace MediaPlugin {
 		uint32_t video_height = 0;
 		uint32_t frame_rate = 0;
 		uint32_t frame_rate_base = 0;
-
+		uint64_t inputTime = snOS_GetSysTime();
 		sample->GetPointer(&dshow_sample_data_pointer);
 		if (!dshow_sample_data_pointer || !context->pResizeContext){
 			return;
@@ -248,7 +250,7 @@ namespace MediaPlugin {
 			context->nInputFps = 0;
 			context->fpsTime = snOS_GetSysTime();
 		}
-		VideoFrame videoFrame(context->pRotateBuffer, context->nVideoFrameSize, pts,
+		VideoFrame videoFrame(context->pRotateBuffer, context->nVideoFrameSize, inputTime,
 			0, context->nOutputWidth, context->nOutputHeight, VIDEO_COLOR_FORMAT_RGB888);
 		context->pVideoQueue->putData(&videoFrame);
 	

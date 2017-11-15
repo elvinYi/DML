@@ -175,6 +175,7 @@ void Cdml_sdk_demoDlg::OnBnClickedBtnCamera1Start()
 		edtSSRC.EnableWindow(TRUE);
 		edtPushId.EnableWindow(TRUE);
 		GetDlgItem(IDC_STATIC_FPS)->SetWindowTextW(_T("0"));
+		GetDlgItem(IDC_STATIC_STATE)->SetWindowTextW(_T("Î´¿ªÊ¼"));
 		GetDlgItem(IDC_STATIC_BITRATE)->SetWindowTextW(_T("0 KB/S"));
 	}
 }
@@ -228,7 +229,7 @@ void Cdml_sdk_demoDlg::MsgCallBackHandle(int uType, int uMsg, void *param1, void
 	if (NULL == pthis)
 		return;
 	Cdml_sdk_demoDlg* pDlg = (Cdml_sdk_demoDlg*)pthis;
-
+	pDlg->PostMessage(WM_USER_SDK_MSG, 0, 0);
 	switch (uMsg)
 	{
 	case DML_EVENT_PUSHER_STATE:

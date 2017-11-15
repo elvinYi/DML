@@ -24,9 +24,12 @@ typedef struct DMLVideoConfig
 typedef struct DMLVideoStream
 {
 	DMLVideoStream::DMLVideoStream() :bIsStop(true),
-		pVideoCapture(NULL), pVideoPusher(NULL)
-	{
+		pVideoCapture(NULL), pVideoPusher(NULL){
 		memset(&videoConfig, 0, sizeof(videoConfig));
+	}
+	DMLVideoStream::~DMLVideoStream(){
+		SAFE_DELETE(pVideoCapture);
+		SAFE_DELETE(pVideoPusher);
 	}
 	bool bIsStop;
 	DMLVideoCapture * pVideoCapture;
@@ -54,7 +57,7 @@ private:
 	int16_t creatVideoPreviewer();
 	DMLVideoStream * creatVideoStream(DMLVideoConfig * pVideoConfig);
 
-	vector<DMLVideoStream*>  vVideoStreamGroup;
+	vector<DMLVideoStream>  vVideoStreamGroup;
 	DMLVideoCapture * pVideoDevicePreviewer;
 
 
