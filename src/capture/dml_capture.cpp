@@ -109,7 +109,7 @@ namespace MediaPlugin {
 
 				prev_dshow_time_stamp_ = 0;
 				stop_ = false;
-				last_camera_name_ = source;
+				//last_camera_name_ = source;
 
 				camera_status_ = true;
 				return NO_ERROR;

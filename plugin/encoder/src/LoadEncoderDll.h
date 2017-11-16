@@ -34,7 +34,7 @@ struct IBaseCodec {
 	ProcessInputProc input = nullptr;
 	ProcessOutputProc output = nullptr;
 	DestoryProc destory = nullptr;
-	IBaseCodecHandle h;
+	IBaseCodecHandle h = nullptr;
 };
 
 class LoadEncoderDll {

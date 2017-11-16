@@ -141,7 +141,7 @@ int32_t RtpSession::sendVideoFrame(const uint8_t* pFrameBuf, int32_t frameLength
 	bool m, int32_t timestampInc)
 {
 	uint32_t  totalPkts;
-	ts = ts + (timestampInc * 100 * 9 / 10);
+	ts = ts + timestampInc;
 	if (frameLength % maxVideoPayloadSize > 0){
 		totalPkts = frameLength / maxVideoPayloadSize + 1;
 	}else{

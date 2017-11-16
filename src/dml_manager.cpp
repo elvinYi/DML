@@ -53,7 +53,16 @@ DMLVideoStream * DMLManager::creatVideoStream(DMLVideoConfig * pVideoConfig)
 
 	pVideoStream->pVideoCapture = pVideoCapture;
 	pVideoStream->pVideoPusher = pVideoPusher;
-	memcpy(&pVideoStream->videoConfig, pVideoConfig, sizeof(DMLVideoConfig));
+	pVideoStream->videoConfig.nFps = pVideoConfig->nFps;
+	pVideoStream->videoConfig.nHeight = pVideoConfig->nHeight;
+	pVideoStream->videoConfig.nIndex = pVideoConfig->nIndex;
+	pVideoStream->videoConfig.nMemberID = pVideoConfig->nMemberID;
+	pVideoStream->videoConfig.nSeverPort = pVideoConfig->nSeverPort;
+	pVideoStream->videoConfig.nSSRC = pVideoConfig->nSSRC;
+	pVideoStream->videoConfig.nWidth = pVideoConfig->nWidth;
+	pVideoStream->videoConfig.sCameraName = pVideoConfig->sCameraName;
+	pVideoStream->videoConfig.sSeverAddr = pVideoConfig->sSeverAddr;
+	memcpy(&(pVideoStream->videoConfig.uiConfig), &(pVideoConfig->uiConfig), sizeof(UIConfig));
 
 	return pVideoStream;
 }
@@ -88,7 +97,7 @@ int16_t DMLManager::StartVideoStream(DMLVideoConfig * pVideoConfig)
 		pVideoConfig->nFps, MediaPlugin::VIDEO_DATA_RGB24);
 
 	if (pVideoStream->pVideoCapture->start(pVideoConfig->sCameraName) != NO_ERROR){
-		//delete pVideoStream;
+		delete pVideoStream;
 		if (pVideoConfig->uiConfig.windMsgCB && pVideoConfig->uiConfig.pWind){
 			pVideoConfig->uiConfig.windMsgCB(1, DML_EVENT_CAPTURE_OPEN_FAILED, NULL, NULL, pVideoConfig->uiConfig.pWind);
 		}

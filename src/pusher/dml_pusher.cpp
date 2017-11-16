@@ -23,6 +23,8 @@ namespace MediaPlugin {
 		, pYUVBuffer(NULL)
 		, pRtpSession(NULL)
 		, nFrameNum(0)
+		, renderThread(NULL)
+		, pusherThread(NULL)
 
 	{
 		pPictureSaver = new SavePicture();
@@ -90,12 +92,12 @@ namespace MediaPlugin {
 			pVideoRender = new RenderManager();
 
 		if (!pVideoRender)
-			return 0;
+			return BAD_VALUE;
 
 		if (!pVideoRender->Initialize((HWND)uiConfig.windHandle, videoType))
 		{
 			pVideoRender->CleanUp();
-			return 0;
+			return BAD_VALUE;
 		}
 #else
 		if (!pVideoRender)
@@ -121,7 +123,9 @@ namespace MediaPlugin {
 		}
 
 		videoBaseInputBuffer.setData((const UInt8*)&videoInputBuffer);
-		createVideoEncoder();
+		if (createVideoEncoder() != NO_ERROR){
+			return BAD_VALUE;
+		}
 
 		if (uiConfig.windMsgCB && uiConfig.pWind){
 			uiConfig.windMsgCB(1, DML_EVENT_PUSHER_START, NULL, NULL, uiConfig.pWind);
@@ -228,9 +232,9 @@ namespace MediaPlugin {
 								nFrameNum++;
 								nPusherSize += videoBaseOutputBuffer.getLength();
 								Log::d(THIS_FILE, "ssrc:%d member:%d encoder output frame size:%d type:%d delay:%d",pRtpSession->getSSRC(),pRtpSession->getMemberid(),
-									videoBaseOutputBuffer.getLength(),videoBaseOutputBuffer.getFlags(), snOS_GetSysTime() - pVideoFrame->getTimestamp());
+									videoBaseOutputBuffer.getLength(), videoBaseOutputBuffer.getFlags(), snOS_GetSysTime() - videoBaseOutputBuffer.getTimestamp());
 								pRtpSession->sendVideoFrame(videoBaseOutputBuffer.getData(), videoBaseOutputBuffer.getLength(),
-									videoBaseOutputBuffer.getFlags(), nFrameNum, DEFAULT_PT, 0, 1000 / nFps);
+									videoBaseOutputBuffer.getFlags(), nFrameNum, DEFAULT_PT, 0, 90000 / nFps);
 							}
 #ifdef DEBUG
 							if (h264Fp) {
@@ -313,6 +317,9 @@ namespace MediaPlugin {
 
 		if (!IEncoder_Init(videoEncoderHandle, IENCODER_VIDEO, (IEncoderIndex)videoEncodeConfig.videoEncoderType, codec)) {
 			Log::w(THIS_FILE, "Encoder Init Failed");
+			IEncoder_Uninit(videoEncoderHandle);
+			IEncoder_Destory(videoEncoderHandle);
+			videoEncoderHandle = NULL;
 			return BAD_VALUE;
 		}
 

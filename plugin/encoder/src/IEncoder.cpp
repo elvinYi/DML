@@ -168,8 +168,10 @@ public:
 	void Uninit() {
 		if (!encoder)
 			return;
-		encoder->uninit(encoder->h);
-		encoder->destory(encoder->h);
+		if (encoder->h){
+			encoder->uninit(encoder->h);
+			encoder->destory(encoder->h);
+		}
 		delete encoder;
 		encoder = nullptr;
 	}
