@@ -43,7 +43,7 @@ RtpSession::RtpSession(const std::string& destIp, uint16_t port, uint32_t ssrc, 
 		throw std::runtime_error("invalid socket");
 
 	u_long nonblocking = 1;
-	ioctlsocket(_socket, FIONBIO, &nonblocking);
+	//ioctlsocket(_socket, FIONBIO, &nonblocking);
 
 	_destTo.sin_family = AF_INET;
 	_destTo.sin_port = htons(port);
@@ -157,7 +157,12 @@ int32_t RtpSession::sendVideoFrame(const uint8_t* pFrameBuf, int32_t frameLength
 			videoSendSize = leftSendSize;
 		}
 		encodeVideoRtpPacket(pFrameBuf + sendOffset, videoSendSize, pt, m, ts, csrcCnt, csrc, memberId, frameNum, pktIndex, totalPkts, frameType);
-		sendto(_socket, (const char*)pSendBuf, videoSendSize + sizeof(RtpHeader) + sizeof(VideoPacketHeader) + csrcCnt * sizeof(uint32_t), 0, (const sockaddr*)&_destTo, sizeof(_destTo));
+		int ret;
+		ret = sendto(_socket, (const char*)pSendBuf, videoSendSize + sizeof(RtpHeader) + sizeof(VideoPacketHeader) + csrcCnt * sizeof(uint32_t),
+			0, (const sockaddr*)&_destTo, sizeof(_destTo));
+		if (ret <=0){
+			Log::d(THIS_FILE, "Send Rtp Failed! FrameNum:%d PktIndex:%d TotalPkts:%d ", frameNum, pktIndex, totalPkts);
+		}
 		sendOffset += videoSendSize;
 	}
 	return NO_ERROR;

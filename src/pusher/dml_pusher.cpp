@@ -231,10 +231,10 @@ namespace MediaPlugin {
 							if (pRtpSession){
 								nFrameNum++;
 								nPusherSize += videoBaseOutputBuffer.getLength();
-								Log::d(THIS_FILE, "ssrc:%d member:%d encoder output frame size:%d type:%d delay:%d",pRtpSession->getSSRC(),pRtpSession->getMemberid(),
-									videoBaseOutputBuffer.getLength(), videoBaseOutputBuffer.getFlags(), snOS_GetSysTime() - videoBaseOutputBuffer.getTimestamp());
 								pRtpSession->sendVideoFrame(videoBaseOutputBuffer.getData(), videoBaseOutputBuffer.getLength(),
 									videoBaseOutputBuffer.getFlags(), nFrameNum, DEFAULT_PT, 0, 90000 / nFps);
+								Log::d(THIS_FILE, "ssrc:%d member:%d encoder output frame size:%d type:%d delay:%d", pRtpSession->getSSRC(), pRtpSession->getMemberid(),
+									videoBaseOutputBuffer.getLength(), videoBaseOutputBuffer.getFlags(), snOS_GetSysTime() - videoBaseOutputBuffer.getTimestamp());
 							}
 #ifdef DEBUG
 							if (h264Fp) {

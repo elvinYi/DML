@@ -69,7 +69,7 @@ namespace MediaPlugin {
 			pVideoQueue->clearData();
 
 			if (nOutputWidth < nOutputHeight){
-				capture_->SetOutputVideoSize(800, 448);
+				capture_->SetOutputVideoSize(800, 600);
 			}
 			else {
 				capture_->SetOutputVideoSize(nOutputWidth, nOutputHeight);

@@ -145,7 +145,7 @@ void Cdml_sdk_demoDlg::OnBnClickedBtnCamera1Start()
 
 		videoConfig.nFps = 15;
 		videoConfig.nWidth = 720;
-		videoConfig.nHeight = 1280;
+		videoConfig.nHeight = 960;
 		videoConfig.nIndex = 1;
 		videoConfig.sCameraName = unicode_to_utf8(camera1);
 		videoConfig.sSeverAddr = unicode_to_utf8(ip);
